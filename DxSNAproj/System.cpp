@@ -1,8 +1,13 @@
 #include "System.h"
+#include "Input.h"
+
+System::System()
+{
+
+}
 
 System::~System()
 {
-	DxLib_End();
 }
 
 bool System::Init(bool windowModeFlag, float width, float height)
@@ -30,6 +35,16 @@ void System::Run()
 	bool quitLoop = false;
 	while (!quitLoop)
 	{
+		Input::GetInstance().Update();
 
+		if (ProcessMessage() || Input::GetInstance().GetKeyPressDown(KEY_INPUT_ESCAPE))
+		{
+			quitLoop = true;
+		}
 	}
+}
+
+void System::Finish()
+{
+	DxLib_End();
 }

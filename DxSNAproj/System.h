@@ -17,6 +17,8 @@ public:
 
 	void Run();
 
+	void Finish();
+
 private:
 	System();
 
