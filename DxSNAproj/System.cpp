@@ -8,7 +8,6 @@ System::System():
 	mDeltaTime(0.0f),
 	mSpriteSortFlag(false)
 {
-	
 }
 
 System::~System()
@@ -106,5 +105,33 @@ void System::DeresisterActor(const ActorBase * actor)
 	if (itr != mActors.end())
 	{
 		mActors.erase(itr);
+	}
+}
+
+void System::ResisterSprite(const SpriteComponent * sprite)
+{
+	const int drawOrder = sprite->GetDrawOrder();
+
+	for (auto member : mSprites)
+	{
+		if (drawOrder > member->GetDrawOrder())
+		{
+			auto itr = std::find(mSprites.begin(), mSprites.end(), member);
+
+			mSprites.insert(itr, const_cast<SpriteComponent *>(sprite));
+			return;
+		}
+	}
+
+	mSprites.emplace_back(const_cast<SpriteComponent *>(sprite));
+}
+
+void System::DeresisterSprite(const SpriteComponent * sprite)
+{
+	auto itr = std::find(mSprites.begin(), mSprites.end(), const_cast<SpriteComponent *>(sprite));
+
+	if (itr != mSprites.end())
+	{
+		mSprites.erase(itr);
 	}
 }

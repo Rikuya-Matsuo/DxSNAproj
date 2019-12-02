@@ -25,6 +25,12 @@
     <Filter Include="ソース ファイル\Actor">
       <UniqueIdentifier>{171698a2-8aab-43ae-945e-538fc2398baf}</UniqueIdentifier>
     </Filter>
+    <Filter Include="ソース ファイル\Component">
+      <UniqueIdentifier>{262d0395-3456-483b-80ee-11429700bf26}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ヘッダー ファイル\Component">
+      <UniqueIdentifier>{0a261e45-d531-4758-a0a6-f3d264526384}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
@@ -32,9 +38,6 @@
     </ClCompile>
     <ClCompile Include="SceneBase.cpp">
       <Filter>ソース ファイル\Scene</Filter>
-    </ClCompile>
-    <ClCompile Include="ComponentBase.cpp">
-      <Filter>ソース ファイル</Filter>
     </ClCompile>
     <ClCompile Include="System.cpp">
       <Filter>ソース ファイル</Filter>
@@ -48,8 +51,17 @@
     <ClCompile Include="ActorBase.cpp">
       <Filter>ソース ファイル\Actor</Filter>
     </ClCompile>
+    <ClCompile Include="ComponentBase.cpp">
+      <Filter>ソース ファイル\Component</Filter>
+    </ClCompile>
     <ClCompile Include="SpriteComponent.cpp">
+      <Filter>ソース ファイル\Component</Filter>
+    </ClCompile>
+    <ClCompile Include="Animation.cpp">
       <Filter>ソース ファイル</Filter>
+    </ClCompile>
+    <ClCompile Include="AnimationComponent.cpp">
+      <Filter>ソース ファイル\Component</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -62,9 +74,6 @@
     <ClInclude Include="SceneBase.h">
       <Filter>ヘッダー ファイル\Scene</Filter>
     </ClInclude>
-    <ClInclude Include="ComponentBase.h">
-      <Filter>ヘッダー ファイル</Filter>
-    </ClInclude>
     <ClInclude Include="BitFlagFunc.h">
       <Filter>ヘッダー ファイル</Filter>
     </ClInclude>
@@ -74,7 +83,19 @@
     <ClInclude Include="ActorBase.h">
       <Filter>ヘッダー ファイル\Actor</Filter>
     </ClInclude>
+    <ClInclude Include="ComponentBase.h">
+      <Filter>ヘッダー ファイル\Component</Filter>
+    </ClInclude>
     <ClInclude Include="SpriteComponent.h">
+      <Filter>ヘッダー ファイル\Component</Filter>
+    </ClInclude>
+    <ClInclude Include="Animation.h">
+      <Filter>ヘッダー ファイル</Filter>
+    </ClInclude>
+    <ClInclude Include="AnimationComponent.h">
+      <Filter>ヘッダー ファイル\Component</Filter>
+    </ClInclude>
+    <ClInclude Include="DivGraphInfo.h">
       <Filter>ヘッダー ファイル</Filter>
     </ClInclude>
   </ItemGroup>

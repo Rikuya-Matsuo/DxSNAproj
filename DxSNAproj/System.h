@@ -33,6 +33,10 @@ public:
 
 	void DeresisterActor(const ActorBase * actor);
 
+	void ResisterSprite(const SpriteComponent * sprite);
+
+	void DeresisterSprite(const SpriteComponent * sprite);
+
 	void RequestSortSprites() { mSpriteSortFlag = true; }
 
 private:
