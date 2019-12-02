@@ -26,14 +26,25 @@ public:
 	void SetVisible(bool value) { BitFlagFunc::SetBitByBool(!value, mFlags, mInvisibleFlagMask); }
 	bool GetVisibleFlag() const { return !(mFlags & mInvisibleFlagMask); }
 
+	void Update();
+
+	void RequestSortComponents() { mFlags |= mComponentSortFlagMask; }
+
 protected:
 	typedef UINT8 BitFlag;
 	static const BitFlag mBeyondSceneFlagMask;
 	static const BitFlag mInvisibleFlagMask;
+	static const BitFlag mComponentSortFlagMask;
 
 	BitFlag mFlags;
 
 	Vector2D mPosition;
 
 	std::list<ComponentBase *> mComponents;
+
+	virtual void UpdateActor();
+
+	void UpdateComponent();
+
+	void SortComponents();
 };

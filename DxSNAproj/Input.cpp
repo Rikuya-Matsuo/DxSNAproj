@@ -4,7 +4,7 @@ Input::Input()
 {
 	for (int i = 0; i < mKeyMaxMass; ++i)
 	{
-		mKeyState[i] = 0x0F;
+		mKeyState[i] = 0;
 	}
 }
 

@@ -16,3 +16,7 @@ ComponentBase::~ComponentBase()
 {
 	mOwner->DeresisterComponent(this);
 }
+
+void ComponentBase::Update()
+{
+}

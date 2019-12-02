@@ -10,6 +10,8 @@ public:
 	ComponentBase(const ActorBase * owner, int priority = 100);
 	virtual ~ComponentBase();
 
+	virtual void Update();
+
 	int GetPriority() const { return mPriority; }
 
 	void SetActive(bool value) { BitFlagFunc::SetBitByBool(value, mFlags, mActiveFlag); }

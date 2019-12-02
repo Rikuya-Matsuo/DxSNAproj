@@ -1,9 +1,14 @@
 #include "System.h"
 #include "Input.h"
+#include "SpriteComponent.h"
+#include <algorithm>
 
-System::System()
+System::System():
+	mPrevCount(GetNowCount()),
+	mDeltaTime(0.0f),
+	mSpriteSortFlag(false)
 {
-
+	
 }
 
 System::~System()
@@ -41,10 +46,65 @@ void System::Run()
 		{
 			quitLoop = true;
 		}
+
+		Draw();
 	}
 }
 
 void System::Finish()
 {
+	SpriteComponent::Finish();
+
 	DxLib_End();
+}
+
+void System::CalculateDeltaTime()
+{
+	int nowCount = GetNowCount();
+	mDeltaTime = (nowCount - mPrevCount) / 1000.0f;
+	
+	// ’²®
+	const float deltaTimeMax = 1.0f / 60;
+	if (mDeltaTime > deltaTimeMax)
+	{
+		mDeltaTime = deltaTimeMax;
+	}
+
+	mPrevCount = nowCount;
+}
+
+void System::Draw()
+{
+	ClearDrawScreen();
+
+	if (mSpriteSortFlag)
+	{
+		// ƒ‰ƒ€ƒ_Ž®
+		bool(*drawOrderSort)(const SpriteComponent *, const SpriteComponent *)
+			= [](const SpriteComponent * lhs, const SpriteComponent * rhs)
+		{
+			return lhs->GetDrawOrder() <= rhs->GetDrawOrder();
+		};
+
+		mSprites.sort(drawOrderSort);
+
+		mSpriteSortFlag = false;
+	}
+
+	ScreenFlip();
+}
+
+void System::ResisterActor(const ActorBase * actor)
+{
+	mActors.emplace_back(const_cast<ActorBase*>(actor));
+}
+
+void System::DeresisterActor(const ActorBase * actor)
+{
+	auto itr = std::find(mActors.begin(), mActors.end(), const_cast<ActorBase*>(actor));
+	
+	if (itr != mActors.end())
+	{
+		mActors.erase(itr);
+	}
 }
