@@ -1,12 +1,15 @@
 #include "System.h"
 #include "Input.h"
+#include "SceneBase.h"
+#include "ActorBase.h"
 #include "SpriteComponent.h"
 #include <algorithm>
 
 System::System():
 	mPrevCount(GetNowCount()),
 	mDeltaTime(0.0f),
-	mSpriteSortFlag(false)
+	mSpriteSortFlag(false),
+	mCurrentScene(nullptr)
 {
 }
 
@@ -39,7 +42,29 @@ void System::Run()
 	bool quitLoop = false;
 	while (!quitLoop)
 	{
+		CalculateDeltaTime();
+
 		Input::GetInstance().Update();
+
+		mCurrentScene->Update();
+
+		UpdateActors();
+
+		if (mCurrentScene->GetSceneChangeFlag())
+		{
+			SceneBase * nextScene = mCurrentScene->GetNextScene();
+
+			if (nextScene != nullptr)
+			{
+				delete mCurrentScene;
+
+				mCurrentScene = nextScene;
+			}
+			else
+			{
+				quitLoop = true;
+			}
+		}
 
 		if (ProcessMessage() || Input::GetInstance().GetKeyPressDown(KEY_INPUT_ESCAPE))
 		{
@@ -52,7 +77,28 @@ void System::Run()
 
 void System::Finish()
 {
+	// シーンのメモリ解放
+	SceneBase * nextScene = mCurrentScene->GetNextScene();
+	if (nextScene != nullptr)
+	{
+		delete nextScene;
+	}
+	if (mCurrentScene != nullptr)
+	{
+		delete mCurrentScene;
+	}
+
+	// アクターのメモリ解放
+	while (!mActors.empty())
+	{
+		delete mActors.back();
+	}
+
+	// スプライトの画像データのメモリ解放
 	SpriteComponent::Finish();
+
+	std::vector<ActorBase *>().swap(mActors);
+	std::list<SpriteComponent *>().swap(mSprites);
 
 	DxLib_End();
 }
@@ -90,7 +136,20 @@ void System::Draw()
 		mSpriteSortFlag = false;
 	}
 
+	for (auto sprite : mSprites)
+	{
+		sprite->Draw();
+	}
+
 	ScreenFlip();
+}
+
+void System::UpdateActors()
+{
+	for (auto member : mActors)
+	{
+		member->Update();
+	}
 }
 
 void System::ResisterActor(const ActorBase * actor)

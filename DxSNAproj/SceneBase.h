@@ -7,8 +7,12 @@ public:
 	SceneBase();
 	virtual ~SceneBase();
 
+	SceneBase * GetNextScene() const { return mNextScene; }
+
 	void RequestSceneChange() { mFlags |= mSceneChangeFlagMask; }
 	bool GetSceneChangeFlag() const { return mFlags & mSceneChangeFlagMask; }
+
+	virtual void Update() = 0;
 
 protected:
 	typedef UINT8 BitFlag;

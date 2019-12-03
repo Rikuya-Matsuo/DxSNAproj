@@ -141,9 +141,11 @@
     <ClCompile Include="ComponentBase.cpp" />
     <ClCompile Include="Input.cpp" />
     <ClCompile Include="main.cpp" />
+    <ClCompile Include="Player.cpp" />
     <ClCompile Include="SceneBase.cpp" />
     <ClCompile Include="SpriteComponent.cpp" />
     <ClCompile Include="System.cpp" />
+    <ClCompile Include="TestScene00.cpp" />
     <ClCompile Include="Vector.cpp" />
   </ItemGroup>
   <ItemGroup>
@@ -154,9 +156,11 @@
     <ClInclude Include="ComponentBase.h" />
     <ClInclude Include="DivGraphInfo.h" />
     <ClInclude Include="Input.h" />
+    <ClInclude Include="Player.h" />
     <ClInclude Include="SceneBase.h" />
     <ClInclude Include="SpriteComponent.h" />
     <ClInclude Include="System.h" />
+    <ClInclude Include="TestScene00.h" />
     <ClInclude Include="Vector.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

@@ -30,6 +30,9 @@ void AnimationComponent::Update()
 
 		// ハンドルを更新
 		mHandle = activeAnim->GetCurrentFrame();
+
+		// サイズを取得
+		GetGraphSizeF(mHandle, &mSize.x, &mSize.y);
 	}
 
 	// いずれ使うかもしれない、アクティブなアニメーションが切り替わったことを示すフラグ
@@ -42,19 +45,22 @@ void AnimationComponent::Update()
 	SpriteComponent::Update();
 }
 
-void AnimationComponent::ResisterLoadAnimation(int number, const DivGraphInfo & info)
+void AnimationComponent::ResisterLoadAnimation(int index, const DivGraphInfo & info)
 {
-	ResisterLoadAnimation(number, info.fileName, info.frameMass, info.xNum, info.yNum, info.size.x, info.size.y);
+	ResisterLoadAnimation(index, info.fileName, info.frameMass, info.xNum, info.yNum, info.size.x, info.size.y);
 }
 
-void AnimationComponent::ResisterLoadAnimation(int number, const std::string & fileName, int allNum, int xNum, int yNum, float width, float height)
+void AnimationComponent::ResisterLoadAnimation(int index, const std::string & fileName, int allNum, int xNum, int yNum, float width, float height)
 {
 	// ロード
 	Animation * anim = new Animation;
 	anim->Load(fileName, allNum, xNum, yNum, width, height);
 
 	// 指定された番号で登録
-	mAnimations[number] = anim;
+	mAnimations[index] = anim;
+
+	// 最後にロードされたものをアクティブとする
+	mActiveAnimationNumber = index;
 }
 
 void AnimationComponent::SetActiveAnimation(int index)
@@ -65,4 +71,25 @@ void AnimationComponent::SetActiveAnimation(int index)
 	}
 
 	mActiveAnimationNumber = index;
+}
+
+void AnimationComponent::SetSecondPerFrame(int index, float second)
+{
+	if (SearchAnimationByIndex(index))
+	{
+		mAnimations[index]->SetSecondPerFrame(second);
+	}
+}
+
+bool AnimationComponent::SearchAnimationByIndex(int index)
+{
+	bool ret = false;
+	auto itr = mAnimations.find(index);
+
+	if (itr != mAnimations.end())
+	{
+		ret = true;
+	}
+
+	return ret;
 }

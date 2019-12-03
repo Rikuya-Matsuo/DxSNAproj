@@ -16,6 +16,11 @@ ActorBase::ActorBase():
 
 ActorBase::~ActorBase()
 {
+	while (!mComponents.empty())
+	{
+		delete mComponents.back();
+	}
+
 	System::GetInstance().DeresisterActor(this);
 }
 

@@ -32,7 +32,8 @@ void Animation::Load(const std::string & fileName, int allNum, int xNum, int yNu
 
 void Animation::Update()
 {
-	mTimer = System::GetInstance().GetDeltaTime();
+	// タイマー加算
+	mTimer += System::GetInstance().GetDeltaTime();
 
 	// 1ループ完遂フラグを下す
 	mFlags &= ~mAnimEndFlagMask;

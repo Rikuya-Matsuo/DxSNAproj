@@ -29,6 +29,8 @@ public:
 
 	float GetDeltaTime() const { return mDeltaTime; }
 
+	const Vector2D & GetWindowSize() { return mWindowSize; }
+
 	void ResisterActor(const ActorBase * actor);
 
 	void DeresisterActor(const ActorBase * actor);
@@ -59,4 +61,6 @@ private:
 	void CalculateDeltaTime();
 
 	void Draw();
+
+	void UpdateActors();
 };

@@ -12,12 +12,14 @@ public:
 
 	void Update() override;
 
-	void ResisterLoadAnimation(int number, const DivGraphInfo& info);
-	void ResisterLoadAnimation(int number, const std::string& fileName, int allNum, int xNum, int yNum, float width, float height);
+	void ResisterLoadAnimation(int index, const DivGraphInfo& info);
+	void ResisterLoadAnimation(int index, const std::string& fileName, int allNum, int xNum, int yNum, float width, float height);
 
 	void SetActiveAnimation(int index);
 
 	void SetAnimLoopFlag(bool value) { BitFlagFunc::SetBitByBool(value, mDelivedFlags, mAnimLoopFlagMask); }
+
+	void SetSecondPerFrame(int index, float second);
 
 private:
 	typedef UINT8 BitFlag;
@@ -34,4 +36,9 @@ private:
 
 	bool GetChangedScaleFlag() const override { return mDelivedFlags & mChangedScaleFlagMask; }
 	void SetChangedScaleFlagTrue() override { mDelivedFlags |= mChangedScaleFlagMask; }
+
+	friend void SpriteComponent::Finish();
+	//static void Finish();
+
+	bool SearchAnimationByIndex(int index);
 };
